@@ -1,0 +1,37 @@
+name: First Release by Roxs
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+    paths-ignore:
+      - README.md
+      - catalog-info.yaml
+
+jobs:
+  env:
+    uses: roxsdev/aws-backstage-github/.github/workflows/env.yaml@main
+
+  build:
+    uses: roxsdev/aws-backstage-github/.github/workflows/build.yaml@main
+    secrets: inherit
+    with:
+      tag: ${{ needs.env.outputs.tag }}
+      repository: ${{ needs.env.outputs.repository }}
+      url: https://${{ needs.env.outputs.repository }}.roxs.dev
+      environment: production
+    needs:
+      - env
+
+  deploy:
+    uses: roxsdev/aws-backstage-github/.github/workflows/deploy.yaml@main
+    secrets: inherit
+    with:
+      tag: ${{ needs.env.outputs.tag }}
+      repository: ${{ needs.env.outputs.repository }}
+      url: https://${{ needs.env.outputs.repository }}.roxs.dev
+      environment: production
+    needs:
+      - env
+      - build

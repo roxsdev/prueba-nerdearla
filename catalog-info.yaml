@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+spec:
+  system: "system:default/community-aws"
+  type:  "service"
+  lifecycle: "experimental"
+  owner:  "group:default/sre"
+metadata:
+  name: "prueba-nerdearla"
+  annotations:
+    github.com/project-slug: roxsdev/prueba-nerdearla
+    backstage.io/techdocs-ref: dir:.
+    argocd/app-name: prueba-nerdearla
+    backstage.io/kubernetes-id: "prueba-nerdearla"
+  tags:
+    - golang
+    - "service"
+    - "experimental"
+  links:
+    - url: https://prueba-nerdearla.backstage.roxs.dev
+      title: Website
+      icon: Website
